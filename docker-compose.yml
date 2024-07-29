@@ -1,3 +1,5 @@
+version: '3.7'
+
 services:
   app:
     depends_on:
@@ -10,7 +12,7 @@ services:
       - .:/data
     environment:
       - FORCE_SSL=${HOST}
-      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/docuseal
+      - DATABASE_URL=postgres://postgres:wqUe9UdsaUjDFSkNsrLfPohp8KiG31Ufkt3mcYASPId9ndWCdszqKqMGWCYifSzj@c8ow8k8:5432/postgres
 
   postgres:
     image: postgres:15
@@ -25,15 +27,3 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-
-  caddy:
-    image: caddy:latest
-    command: caddy reverse-proxy --from $HOST --to app:3000
-    ports:
-      - 80:80
-      - 443:443
-      - 443:443/udp
-    volumes:
-      - .:/data
-    environment:
-      - HOST=${HOST}
